@@ -1,0 +1,276 @@
+<local:MyPageRight
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:PCL" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d" x:Class="PageToolsMain"
+    PanScroll="PanBack">
+    <local:MyScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="PanBack">
+        <StackPanel Margin="25,10,25,25" x:Name="PanMain">
+
+            <local:MyCard Margin="0,15,0,15" Title="常用工具">
+                <WrapPanel Margin="25,40,21,5" ItemHeight="50">
+                    <local:MyButton x:Name="BtnClear" MinWidth="120" Text="清理垃圾"
+                                    ToolTip="删除日志、崩溃报告、Natives 与启动器缓存" Margin="0,0,15,15" />
+                    <local:MyButton x:Name="BtnLuck" MinWidth="100" Text="今日人品" Margin="0,0,15,15" />
+                    <local:MyButton x:Name="BtnShortcut" MinWidth="120" Text="创建快捷方式"
+                                    ToolTip="在桌面或开始菜单创建启动器的快捷方式" Margin="0,0,15,15" />
+                    <local:MyButton x:Name="BtnLaunchCount" MinWidth="120" Text="启动次数" Margin="0,0,15,15" />
+                    <local:MyButton x:Name="BtnOpenLog" MinWidth="120" Text="打开日志"
+                                    ToolTip="打开启动器的日志文件夹" Margin="0,0,15,15" />
+                    <local:MyButton x:Name="BtnOpenFolder" MinWidth="120" Text="打开 PCL 文件夹"
+                                    ToolTip="打开启动器自身的数据文件夹" Margin="0,0,15,15" />
+                </WrapPanel>
+            </local:MyCard>
+
+            <local:MyCard Margin="0,0,0,15" Title="自定义下载">
+                <StackPanel Orientation="Vertical" Margin="25,40,25,20">
+                    <TextBlock Text="输入一个直链地址，下载到你指定的文件夹。可用于手动下载 Mod、整合包或任意文件。" TextWrapping="Wrap" />
+
+                    <Grid Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="下载地址" VerticalAlignment="Center" Margin="0,0,25,0" />
+                        <local:MyTextBox x:Name="TextDownloadUrl" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"
+                                         HintText="https://example.com/file.jar" />
+
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="保存到" VerticalAlignment="Center" Margin="0,0,25,0" />
+                        <local:MyTextBox x:Name="TextDownloadFolder" Grid.Column="1" Grid.Row="1" Margin="0,10,0,10" />
+                        <local:MyTextButton x:Name="BtnSelectFolder" Grid.Column="2" Grid.Row="1" Margin="10,0,5,0" VerticalAlignment="Center"
+                                            Text="选择文件夹" />
+
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="文件名" VerticalAlignment="Center" Margin="0,0,25,0" />
+                        <local:MyTextBox x:Name="TextDownloadName" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" />
+                    </Grid>
+
+                    <Grid Margin="0,15,0,0" Height="35">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <local:MyButton x:Name="BtnDownloadStart" Grid.Column="0" Width="140" Text="开始下载"
+                                        ColorType="Highlight" Margin="0,0,15,0" HorizontalAlignment="Right" />
+                        <local:MyButton x:Name="BtnDownloadOpen" Grid.Column="1" Width="140" Text="打开保存位置"
+                                        Margin="0,0,15,0" HorizontalAlignment="Left" />
+                    </Grid>
+                </StackPanel>
+            </local:MyCard>
+
+            <local:MyCard Margin="0,0,0,15" Title="皮肤工具">
+                <StackPanel Margin="25,40,25,20">
+                    <TextBlock Text="输入正版玩家的 ID，从 Mojang 获取其当前皮肤并保存为 PNG 文件。" TextWrapping="Wrap" />
+
+                    <Grid Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="玩家 ID" VerticalAlignment="Center" Margin="0,0,25,0" />
+                        <local:MyTextBox x:Name="TextSkinId" Grid.Column="1" MaxLength="16" HintText="例如 Notch" />
+                        <local:MyButton x:Name="BtnSkinFetch" Grid.Column="2" Text="下载并保存"
+                                        ColorType="Highlight" MinWidth="120" Margin="15,0,0,0" />
+                    </Grid>
+
+                    <TextBlock Text="如果该 ID 不存在、被 Mojang 限流，或网络不可用，会给出对应的提示。" Opacity="0.6"
+                               FontSize="12" Margin="0,10,0,0" TextWrapping="Wrap" />
+                </StackPanel>
+            </local:MyCard>
+
+            <local:MyCard Margin="0,0,0,15" Title="皮肤头像">
+                <StackPanel Margin="25,40,25,20">
+                    <TextBlock Text="从本地皮肤文件裁出正方形头像：正脸打底，自动叠加第二层（帽子层）。" TextWrapping="Wrap" />
+
+                    <Grid Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="头像尺寸" VerticalAlignment="Center" Margin="0,0,25,0" />
+                        <local:MyComboBox x:Name="CmboHeadSize" Grid.Column="1" Width="180" HorizontalAlignment="Left">
+                            <local:MyComboBoxItem Content="64 × 64" Tag="64" IsSelected="True" />
+                            <local:MyComboBoxItem Content="96 × 96" Tag="96" />
+                            <local:MyComboBoxItem Content="128 × 128" Tag="128" />
+                            <local:MyComboBoxItem Content="256 × 256" Tag="256" />
+                        </local:MyComboBox>
+                        <local:MyButton x:Name="BtnHeadSelect" Grid.Column="2" Text="选择皮肤文件"
+                                        MinWidth="140" Margin="15,0,0,0" />
+                    </Grid>
+
+                    <Border x:Name="PanHeadPreview" Margin="0,18,0,0" HorizontalAlignment="Left"
+                            Visibility="Collapsed" Padding="8" Background="#22000000">
+                        <Image x:Name="ImgHeadPreview" Width="128" Height="128" Stretch="Uniform"
+                               RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                    </Border>
+
+                    <Grid Margin="0,15,0,0" Height="35">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <local:MyButton x:Name="BtnHeadSave" Grid.Column="0" Text="保存头像"
+                                        MinWidth="140" IsEnabled="False" />
+                    </Grid>
+                </StackPanel>
+            </local:MyCard>
+
+            <local:MyCard Margin="0,0,0,15" Title="成就生成器">
+                <StackPanel Margin="25,40,25,20">
+                    <TextBlock Text="填写物品 ID 与两行描述，在本地生成一张 Minecraft 风格的成就达成图片。" TextWrapping="Wrap" />
+
+                    <Grid Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="物品 ID" VerticalAlignment="Center" Margin="0,0,25,0" />
+                        <local:MyTextBox x:Name="TextAchItem" Grid.Row="0" Grid.Column="1"
+                                         HintText="例如 diamond_sword，留空则不显示图标" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="成就名称" VerticalAlignment="Center" Margin="0,0,25,0" />
+                        <local:MyTextBox x:Name="TextAchTitle" Grid.Row="1" Grid.Column="1" Margin="0,10,0,10"
+                                         HintText="例如 挑战开始" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="第一行" VerticalAlignment="Center" Margin="0,0,25,0" />
+                        <local:MyTextBox x:Name="TextAchLine1" Grid.Row="2" Grid.Column="1"
+                                         HintText="例如 获得一把钻石剑" />
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="第二行" VerticalAlignment="Center" Margin="0,0,25,0" />
+                        <local:MyTextBox x:Name="TextAchLine2" Grid.Row="3" Grid.Column="1" Margin="0,10,0,0"
+                                         HintText="可留空" />
+                    </Grid>
+
+                    <Grid Margin="0,15,0,0" Height="35">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <local:MyButton x:Name="BtnAchPreview" Grid.Column="0" Text="生成预览" Width="140"
+                                        ColorType="Highlight" Margin="0,0,15,0" HorizontalAlignment="Right" />
+                        <local:MyButton x:Name="BtnAchSave" Grid.Column="1" Text="保存图片" Width="140"
+                                        Margin="0,0,15,0" HorizontalAlignment="Left" IsEnabled="False" />
+                    </Grid>
+
+                    <Border x:Name="PanAchPreview" Margin="0,15,0,0" HorizontalAlignment="Left"
+                            Visibility="Collapsed" Padding="8" Background="#22000000">
+                        <Image x:Name="ImgAchPreview" MaxWidth="480" Stretch="Uniform" />
+                    </Border>
+                </StackPanel>
+            </local:MyCard>
+
+            <local:MyCard Margin="0,0,0,15" Title="服务器信息查询">
+                <StackPanel Margin="25,40,25,20">
+                    <TextBlock Text="向 Java 版服务器发起一次状态查询，读取版本、在线人数、延迟与 MOTD。" TextWrapping="Wrap" />
+
+                    <Grid Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="服务器地址" VerticalAlignment="Center" Margin="0,0,25,0" />
+                        <local:MyTextBox x:Name="TextServerHost" Grid.Column="1" HintText="mc.example.com" />
+                        <TextBlock Grid.Column="2" Text="端口" VerticalAlignment="Center" Margin="15,0,15,0" />
+                        <local:MyTextBox x:Name="TextServerPort" Grid.Column="3" Text="25565" />
+                        <local:MyButton x:Name="BtnServerQuery" Grid.Column="4" Text="查询"
+                                        ColorType="Highlight" MinWidth="100" Margin="15,0,0,0" />
+                    </Grid>
+
+                    <Border x:Name="PanServerResult" Margin="0,18,0,0" Visibility="Collapsed">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image x:Name="ImgServerIcon" Grid.Column="0" Width="48" Height="48"
+                                   VerticalAlignment="Top" Margin="0,0,15,0"
+                                   RenderOptions.BitmapScalingMode="NearestNeighbor" />
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock x:Name="LabServerMotd" TextWrapping="Wrap" FontSize="14" />
+                                <TextBlock x:Name="LabServerSample" TextWrapping="Wrap" FontSize="12" Opacity="0.6"
+                                           Margin="0,6,0,0" Visibility="Collapsed" />
+                                <TextBlock x:Name="LabServerInfo" TextWrapping="Wrap" FontSize="12" Opacity="0.7"
+                                           Margin="0,8,0,0" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </local:MyCard>
+
+            <local:MyCard Margin="0,0,0,15" Title="自定义标志">
+                <StackPanel Margin="25,40,25,20">
+                    <TextBlock Text="换成你自己的标志：标题栏左上角的 PCL 标与启动动画会同时使用同一张图。建议正方形图片，透明背景的 PNG 效果最好；启动动画部分下次启动生效。" TextWrapping="Wrap" Foreground="{DynamicResource ColorBrushGray2}" FontSize="12.5" />
+                    <Grid Margin="0,14,0,0" Height="86">
+                        <Border CornerRadius="10" Background="{DynamicResource ColorBrushGray8}" BorderBrush="{DynamicResource ColorBrushCardBorder}" BorderThickness="1" HorizontalAlignment="Left" Width="86">
+                            <Grid>
+                                <TextBlock x:Name="LabLogoEmpty" Text="默认" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" Foreground="{DynamicResource ColorBrushGray4}" />
+                                <Image x:Name="ImgLogoPreview" Stretch="Uniform" Margin="12" Visibility="Collapsed" />
+                            </Grid>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center" Margin="102,0,0,0">
+                            <WrapPanel>
+                                <local:MyButton x:Name="BtnSplashLogoPick" MinWidth="116" Text="选择图片" Margin="0,0,12,8" />
+                                <local:MyButton x:Name="BtnSplashLogoReset" MinWidth="116" Text="恢复默认" Margin="0,0,0,8" />
+                            </WrapPanel>
+                            <TextBlock x:Name="LabSplashLogoPath" TextTrimming="CharacterEllipsis" FontSize="11.5" Foreground="{DynamicResource ColorBrushGray3}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </local:MyCard>
+
+            <local:MyCard Margin="0,0,0,15" Title="动态壁纸">
+                <StackPanel Margin="25,40,25,20">
+                    <TextBlock Text="用 GIF 动图或视频当启动器背景，循环播放。支持 .gif / .mp4 / .wmv，文件会复制到 PCL 数据目录避免丢失。" TextWrapping="Wrap" Foreground="{DynamicResource ColorBrushGray2}" FontSize="12.5" />
+                    <WrapPanel Margin="0,14,0,0">
+                        <local:MyButton x:Name="BtnWallpaperPick" MinWidth="116" Text="选择文件" Margin="0,0,12,0" />
+                        <local:MyButton x:Name="BtnWallpaperClear" MinWidth="116" Text="关闭动态壁纸" />
+                    </WrapPanel>
+                    <TextBlock x:Name="LabWallpaperPath" Margin="0,10,0,0" TextTrimming="CharacterEllipsis" FontSize="11.5" Foreground="{DynamicResource ColorBrushGray3}" />
+                    <TextBlock Text="播放性能" Margin="0,16,0,0" FontSize="12.5" FontWeight="SemiBold" Foreground="{DynamicResource ColorBrush1}" />
+                    <TextBlock Text="动图逐帧播放比较吃 CPU。选「均衡」或「省电」可以降低占用；窗口最小化时也会自动暂停播放。" Margin="0,6,0,0" TextWrapping="Wrap" FontSize="11.5" Foreground="{DynamicResource ColorBrushGray2}" />
+                    <WrapPanel Margin="0,9,0,0">
+                        <local:MyButton x:Name="BtnPerfHigh" MinWidth="92" Text="流畅" Margin="0,0,10,8" />
+                        <local:MyButton x:Name="BtnPerfMid" MinWidth="92" Text="均衡" Margin="0,0,10,8" />
+                        <local:MyButton x:Name="BtnPerfLow" MinWidth="92" Text="省电" Margin="0,0,0,8" />
+                    </WrapPanel>
+                </StackPanel>
+            </local:MyCard>
+
+            <local:MyCard Margin="0,0,0,15" Title="快捷入口">
+                <StackPanel Margin="25,40,25,20">
+                    <TextBlock Text="常用目录一键打开，省去在资源管理器里翻找的麻烦。" TextWrapping="Wrap" Margin="0,0,0,10" />
+                    <WrapPanel ItemHeight="50">
+                        <local:MyButton x:Name="BtnOpenMcFolder" MinWidth="140" Text="打开 .minecraft" Margin="0,0,15,10" />
+                        <local:MyButton x:Name="BtnOpenVersionFolder" MinWidth="140" Text="打开 versions" Margin="0,0,15,10" />
+                        <local:MyButton x:Name="BtnOpenTemp" MinWidth="140" Text="打开临时目录" Margin="0,0,15,10" />
+                    </WrapPanel>
+                </StackPanel>
+            </local:MyCard>
+
+        </StackPanel>
+    </local:MyScrollViewer>
+</local:MyPageRight>
